@@ -1,0 +1,75 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+    link(href="/css/style.css" rel="stylesheet" type="text/css")
+    title TOP&#x30DA;&#x30FC;&#x30B8;
+  body
+    // ue
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand Project:GoriUhoho
+      #navbarText.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto 
+          li.nav-item
+            a.nav-link(href="/logout") ログアウト
+          li.nav-item
+            a.nav-link(href="/oekaki") お絵描きフォーム
+        span.navbar-text
+          | #{user.username} でログイン中
+    // / ue
+    // main
+    .container
+      .row.center
+        h3.col.s12.light みんなの描いたイラストだよ
+      .row
+        .col-3
+          .card
+            img.card-img-top(src="gorilla_drumming.png" alt="...")
+            .card-body
+              p.card-text
+                a Drumming Gorilla
+                br
+                |ゴリラ大好き さん制作
+                br
+                |ウホウホするゴリラさんです
+        .col-3
+          .card
+            img.card-img-top(src="gorilla_family.png" alt="...")
+            .card-body
+              p.card-text
+                a Family Gorilla
+                br
+                |ゴリラ大好き さん制作
+                br
+                |親子愛の溢れるゴリラさんです
+        .col-3
+          .card
+            img.card-img-top(src="gorilla_girl.png" alt="...")
+            .card-body
+              p.card-text
+                a Gorilla Girl
+                br 
+                |ゴリラ大好き さん制作
+                br
+                |最近巷で話題の美少女ゴリラさんです
+        .col-3
+          .card
+            img.card-img-top(src="gorilla_hardboiled.png" alt="...")
+            .card-body
+              p.card-text
+                a HardBoiled Gorilla
+                br
+                |ゴリラ大好き さん制作
+                br
+                |少し怪しげなゴリラさんです
+        .col-3
+          .card
+            img.card-img-top(src="gorilla_tuyoi.png" alt="...")
+            .card-body
+              p.card-text
+                a Standard Gorilla
+                br
+                | ゴリラ大好き さん制作
+                br
+                |スタンダードなゴリラさんです
