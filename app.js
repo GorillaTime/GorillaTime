@@ -8,8 +8,8 @@ var session = require('express-session');
 var passport = require('passport');
 
 var GitHubStrategy = require('passport-github2').Strategy;
-var GITHUB_CLIENT_ID = '9fe2dcc3d90d7f19ad39';
-var GITHUB_CLIENT_SECRET = 'b99567e8985600f691f3df6e5d36d2661b357901';
+var GITHUB_CLIENT_ID =　process.env.GITHUB_CLIENT_ID || '9fe2dcc3d90d7f19ad39';
+var GITHUB_CLIENT_SECRET =　process.env.GITHUB_CLIENT_SECRET || 'b99567e8985600f691f3df6e5d36d2661b357901';
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -23,7 +23,7 @@ passport.deserializeUser(function (obj, done) {
 passport.use(new GitHubStrategy({
   clientID: GITHUB_CLIENT_ID,
   clientSecret: GITHUB_CLIENT_SECRET,
-  callbackURL: 'http://localhost:8000/auth/github/callback'
+  callbackURL: process.env.HEROKU_URL ? process.env.HEROKU_URL + 'auth/github/callback' : 'http://localhost:8000/auth/github/callback'
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
