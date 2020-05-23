@@ -7,4 +7,10 @@ html(lang="ja")
     script(defer,src="/javascripts/bundle.js")
   body
     h1 Let's お絵描き
-    canvas#myPics(width="560" height="360")
+    canvas#Canvas(width="560" height="360")
+    div
+      button#deleteCanvas やり直し
+      a#download-link(href="" download="") 保存  
+    br
+    br
+    div

@@ -1,0 +1,7 @@
+{
+  "name": "GorillaTime",
+  "description": "  お絵描き掲示板風アプリ",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}

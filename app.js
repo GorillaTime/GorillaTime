@@ -37,6 +37,7 @@ var topPageRouter = require('./routes/top');
 var oekakiRouter = require('./routes/oekaki');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
+var postsRouter = require('./routes/posts');
 
 var app = express();
 app.use(helmet());
@@ -62,6 +63,7 @@ app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/top',ensureAuthenticated,topPageRouter);
 app.use('/oekaki',ensureAuthenticated,oekakiRouter);
+app.use('/posts',postsRouter);
 
 app.get('/auth/github',
   passport.authenticate('github', { scope: ['user:email'] }),
