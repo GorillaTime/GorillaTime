@@ -6,31 +6,31 @@ var logger = require('morgan');
 var helmet = require('helmet');
 var session = require('express-session');
 var passport = require('passport');
+var Strategy = require('passport-twitter').Strategy;
+var config = require('./config');
+var fs = require('fs');
 
-var GitHubStrategy = require('passport-github2').Strategy;
-var GITHUB_CLIENT_ID =　process.env.GITHUB_CLIENT_ID || '9fe2dcc3d90d7f19ad39';
-var GITHUB_CLIENT_SECRET =　process.env.GITHUB_CLIENT_SECRET || 'b99567e8985600f691f3df6e5d36d2661b357901';
-
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function (obj, done) {
-  done(null, obj);
-});
-
-
-passport.use(new GitHubStrategy({
-  clientID: GITHUB_CLIENT_ID,
-  clientSecret: GITHUB_CLIENT_SECRET,
-  callbackURL: process.env.HEROKU_URL ? process.env.HEROKU_URL + 'auth/github/callback' : 'http://localhost:8000/auth/github/callback'
-},
-  function (accessToken, refreshToken, profile, done) {
-    process.nextTick(function () {
-      return done(null, profile);
+passport.use(new Strategy({
+    consumerKey: config.twitter.consumerKey,
+    consumerSecret: config.twitter.consumerSecret,
+    callbackURL: config.twitter.callbackURL
+  },
+  function(token,tokenSecret,profile,cb) {
+    process.nextTick(function() {
+      return cb(null,profile);
     });
-  }
-));
+  })
+);
+
+passport.serializeUser(function (user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function (obj, cb) {
+  cb(null, obj);
+});
+
+
 
 var indexRouter = require('./routes/index');
 var topPageRouter = require('./routes/top');
@@ -59,27 +59,32 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/',indexRouter);
-app.use('/login', loginRouter);
-app.use('/logout', logoutRouter);
+//app.use('/login', loginRouter);
+//app.use('/logout', logoutRouter);
 app.use('/top',ensureAuthenticated,topPageRouter);
 app.use('/oekaki',ensureAuthenticated,oekakiRouter);
 app.use('/posts',postsRouter);
 
-app.get('/auth/github',
-  passport.authenticate('github', { scope: ['user:email'] }),
-  function (req, res) {
-});
+app.get('/login/twitter',
+  passport.authenticate('twitter')
+);
 
-app.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  function (req, res) {
+app.get('/oauth_callback',
+  passport.authenticate('twitter', { failureRedirect: '/' }),
+  function(req, res) {
     res.redirect('/');
+  }
+);
+app.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
 });
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login');
 }
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

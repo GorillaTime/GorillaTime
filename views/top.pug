@@ -4,7 +4,7 @@ html
     meta(charset="UTF-8")
     link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
     link(href="/css/style.css" rel="stylesheet" type="text/css")
-    title TOP&#x30DA;&#x30FC;&#x30B8;
+    title TOP
   body
     // ue
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
@@ -16,9 +16,10 @@ html
           li.nav-item
             a.nav-link(href="/oekaki") お絵描きフォーム
         span.navbar-text
-          | #{user.username} でログイン中
+          | #{user.displayName} でログイン中 
     // / ue
     // main
+    p tweetArea #{JYOUHOU[1]}: #{JYOUHOU[0]}
     .container
       .row.center
         h3.col.s12.light みんなの描いたイラストだよ

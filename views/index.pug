@@ -1,12 +1,12 @@
 extends layout
 block content
-  h1= title
-  p Welcome to #{title}
-  if user
-    p Hello, #{user.username}
-    a(href="/top") TopPage 
+  if user 
+    h1 (´・ω・｀)Welcome to ゴリラのハウスへ
+    p こんにちは, #{user.displayName} さん
+    a(href="/top") (´・ω・｀)TOPページだよ
     br
     br
     a(href="/logout") Logout
-  else
-    a(href="/login") Login
+  else 
+    h1 (´・ω・｀) ここがあのゴリラの、ハウスね
+    a(href="/login/twitter") Login
